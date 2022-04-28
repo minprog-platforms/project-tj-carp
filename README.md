@@ -11,6 +11,12 @@ en dat deze problemen kunnen worden opgelost door een eigen webapplicatie te mak
 Deze webapplicatie zal een overzicht helpen te creëeren van de financiën van de gebruiker. De applicatie zal input accepteren voor waardes als inkomsten en uitgaves,
 de datum waarop deze zijn gedaan, de soort inkomst/uitgave en de bredere categorie waar deze onder valt. Met deze data wordt er dan ook een totaalbedrag aan inkomsten
 en uitgaves per (fiscale) maand en categorie teruggegeven. Structuur:
+- Div tafel met inkomsten
+- Div tafel met uitgaves
+- Div tafel met categorieen en totalen
+- Div met totaal inkomsten
+- Div met totaal uitgaven
+- Div met over
 
 ### Schetsen
 ![App page sketch 1, of tables for inputting date, amount and type of income and expenses](doc/photo1651140945.jpeg)
