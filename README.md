@@ -8,6 +8,8 @@ het euro-teken) in Excel, en heb ook extra moeite moeten doen om via Excel mijn 
 en dat deze problemen kunnen worden opgelost door een eigen webapplicatie te maken. 
 
 ### Schetsen
+![App page sketch 1, of tables for inputting date, amount and type of income and expenses](doc/photo1651140945.jpeg)
+![App page sketch 2, of tables for inputting amounts and types of expected monthly income and expenses](doc/photo1651140944.jpeg)
 
 ### Oplossing
 Deze webapplicatie zal een overzicht helpen te creëeren van de financiën van de gebruiker. De applicatie zal input accepteren voor waardes als inkomsten en uitgaves,
