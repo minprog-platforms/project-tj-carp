@@ -18,6 +18,16 @@ table {
   transform: translate(-50%, -50%);
 }
 
+thead {
+  text-align: center
+}
+
+th {
+  border: 1px solid #000000;
+  border-collapse: collapse;
+  text-align: center
+}
+
 .mdc-data-table__cell {
   border: 1px solid #000000;
   border-collapse: collapse;
