@@ -14,8 +14,6 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
-import TextField from '@mui/material/TextField';
-
 
 function App() {
   return (<Budget/>)
@@ -27,8 +25,7 @@ const rows = [
 
 function Cell(props) {
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
-      <div>
+    <div>
       <FormControl variant="standard" sx={{ m: 1, mt: 3, width: '25ch' }}>
           <Input
             id="standard-adornment-weight"
@@ -40,12 +37,11 @@ function Cell(props) {
           />
         </FormControl>
       </div>
-    </Box>
     )
 }
 
 function MoneyCell(props) {
-  return (<Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+  return (
   <div>
     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
       <InputLabel htmlFor="standard-adornment-amount"></InputLabel>
@@ -56,23 +52,13 @@ function MoneyCell(props) {
       />
     </FormControl>
   </div>
-</Box>)
+  )
 }
 
 function Total() {
   const [value, setValue] = useState('0')
 
   return (<input type="text"></input>)
-}
-
-function InputAdornments() {
-  const [values, setValues] = React.useState({
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false,
-  });
 }
 
 const handleChange = (prop) => (event) => {
@@ -84,8 +70,7 @@ function Budget() {
 
   return (
     <>
-      <TableContainer component={Paper}>
-      <Table sx={{ maxWidth: 650 }} aria-label="simple table">
+      <Table sx={{ maxWidth: 400 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Date</TableCell>
@@ -106,7 +91,6 @@ function Budget() {
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
     </>
   )
 
