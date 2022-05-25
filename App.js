@@ -12,8 +12,6 @@ function App() {
 }
 
 function Cell(props) {
-  
-  
   return (
     <div>
       <FormControl variant="standard" sx={{ m: 1, mt: 3, width: '15ch' }}>
@@ -45,7 +43,23 @@ function MoneyCell(props) {
   )
 }
 
-function Total() {
+function IncomeTotal() {
+  const [value, setValue] = useState('0')
+
+  return (
+  <>
+    <div class="total-income">
+      <table>
+      <th> Total income </th>
+        <tbody class="total-income-content">
+          total income
+        </tbody>
+      </table>
+    </div>
+  </>)
+}
+
+function ExpensesTotal() {
   const [value, setValue] = useState('0')
 
   return (
@@ -57,6 +71,17 @@ function Total() {
           total expensies
         </tbody>
       </table>
+    </div>
+  </>)
+}
+
+function Categories() {
+  const [value, setValue] = useState('0')
+
+  return (
+  <>
+    <div class="Categories">
+      Categories
     </div>
   </>)
 }
@@ -81,11 +106,25 @@ function Budget() {
     }
   }
 
-  const incomeTableRows = budget.map((row, index) => (
+  const [income, setIncome] = useState([{Date: null, Amount: null, Type: null}])
+
+  const setIncomeCell = (index, type, value) => {
+    const newIncome = [...income]
+    newIncome[index][type] = {...income[index][type]}
+    newIncome[index][type] = value
+    if (index === income.length - 1){
+      setIncome([...newIncome, {Date: null, Amount: null, Type: null}])
+    }
+    else {
+      setIncome(newIncome)
+    }
+  }
+
+  const incomeTableRows = income.map((row, index) => (
     <tr class="income-row">
-        <td class="income-cell"><Cell type='Date' onCellChange={(value) => setBudgetCell(index, 'Date', value)}/></td>
-        <td class="income-money-cell"><MoneyCell type='Amount' onCellChange={(value) => setBudgetCell(index, 'Amount', value)}/></td>
-        <td class="income-cell"><Cell type='Type' onCellChange={(value) => setBudgetCell(index, 'Type', value)}/></td>
+        <td class="income-cell"><Cell type='Date' onCellChange={(value) => setIncomeCell(index, 'Date', value)}/></td>
+        <td class="income-money-cell"><MoneyCell type='Amount' onCellChange={(value) => setIncomeCell(index, 'Amount', value)}/></td>
+        <td class="income-cell"><Cell type='Type' onCellChange={(value) => setIncomeCell(index, 'Type', value)}/></td>
       </tr>
     ))
 
@@ -112,14 +151,9 @@ function Budget() {
         </tbody>
         </table>
       </div>
-      <div class="total-income">
-        <table>
-          <th> Total income </th>
-            <tbody class="total-income-content">
-              total income
-            </tbody>
-        </table>
-      </div>
+      <IncomeTotal />
+      <Categories />
+      <ExpensesTotal />
       <div class="expenses-table">
       <table class="expenses-table-t" aria-label="Budget">
         <th colspan="3"> Expenses </th>
@@ -134,7 +168,6 @@ function Budget() {
       </table>
       {budget[0].Type}
     </div>
-    <Total />
   </>
   )
 
