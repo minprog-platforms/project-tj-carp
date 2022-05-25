@@ -80,7 +80,7 @@ function Categories() {
 
   return (
   <>
-    <div class="Categories">
+    <div class="categories">
       Categories
     </div>
   </>)
