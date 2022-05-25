@@ -9,6 +9,12 @@ html {
   box-sizing: inherit;
 }
 
+div {
+  border: 1px solid #000000;
+  border-collapse: collapse;
+  border-radius: 5px;
+}
+
 th {
   border: 1px solid #000000;
   border-collapse: collapse;
@@ -17,9 +23,6 @@ th {
 
 .expenses-table-t {
   width: 10%;
-  border: 1px solid #000000;
-  border-collapse: collapse;
-  border-radius: 5px;
   position: absolute;
   top: 10%;
   left: 50%;
@@ -28,9 +31,6 @@ th {
 
 .income-table-t {
   width: 10%;
-  border: 1px solid #000000;
-  border-collapse: collapse;
-  border-radius: 5px;
   position: absolute;
   top: 10%;
   left: 10%;
@@ -38,20 +38,20 @@ th {
 }
 
 .total-income {
-  border: 1px solid #000000;
-  border-collapse: collapse;
-  border-radius: 5px;
   position: absolute;
   top: 30%;
   left: 0%;
 }
 
 .total-expenses {
-  border: 1px solid #000000;
-  border-collapse: collapse;
-  border-radius: 5px;
   position: absolute;
   bottom: 10%;
+  left: 0%;
+}
+
+.categories {
+  position: absolute;
+  top: 50%;
   left: 0%;
 }
 
