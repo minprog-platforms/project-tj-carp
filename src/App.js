@@ -92,33 +92,27 @@ const handleChange = (prop) => (event) => {
 };
 
 function Budget() {
-  const [budget, setBudget] = useState([{Date: null, Amount: null, Type: null}])
-
-  const setBudgetCell = (index, type, value) => {
-    const newBudget = [...budget]
-    newBudget[index][type] = {...budget[index][type]}
-    newBudget[index][type] = value
-    if (index === budget.length - 1){
-      setBudget([...newBudget, {Date: null, Amount: null, Type: null}])
-    }
-    else {
-      setBudget(newBudget)
+  const createSetCell = (value, setValue) => {
+    return (index, type, amount) => {
+      const newValue = [...value]
+      newValue[index][type] = {...value[index][type]}
+      newValue[index][type] = amount
+      if (index === value.length - 1){
+        setValue([...newValue, {Date: null, Amount: null, Type: null}])
+      }
+      else {
+        setValue(newValue)
+      }
     }
   }
+
+  const [expenses, setExpenses] = useState([{Date: null, Amount: null, Type: null}])
+
+  const setExpenseCell = createSetCell(expenses, setExpenses)
 
   const [income, setIncome] = useState([{Date: null, Amount: null, Type: null}])
 
-  const setIncomeCell = (index, type, value) => {
-    const newIncome = [...income]
-    newIncome[index][type] = {...income[index][type]}
-    newIncome[index][type] = value
-    if (index === income.length - 1){
-      setIncome([...newIncome, {Date: null, Amount: null, Type: null}])
-    }
-    else {
-      setIncome(newIncome)
-    }
-  }
+  const setIncomeCell = createSetCell(income, setIncome)
 
   const incomeTableRows = income.map((row, index) => (
     <tr class="income-row">
@@ -128,45 +122,48 @@ function Budget() {
       </tr>
     ))
 
-  const expensesTableRows = budget.map((row, index) => (
+  const expensesTableRows = expenses.map((row, index) => (
     <tr class="expenses-row">
-        <td class="expenses-cell"><Cell type='Date' onCellChange={(value) => setBudgetCell(index, 'Date', value)}/></td>
-        <td class="expenses-money-cell"><MoneyCell type='Amount' onCellChange={(value) => setBudgetCell(index, 'Amount', value)}/></td>
-        <td class="expenses-cell"><Cell type='Type' onCellChange={(value) => setBudgetCell(index, 'Type', value)}/></td>
+        <td class="expenses-cell"><Cell type='Date' onCellChange={(value) => setExpenseCell(index, 'Date', value)}/></td>
+        <td class="expenses-money-cell"><MoneyCell type='Amount' onCellChange={(value) => setExpenseCell(index, 'Amount', value)}/></td>
+        <td class="expenses-cell"><Cell type='Type' onCellChange={(value) => setExpenseCell(index, 'Type', value)}/></td>
       </tr>
     ))
 
   return (
     <>
-      <div class="income-table">
-        <table class="income-table-t">
-        <th colspan="3"> Income </th>
-        <tr class="expenses-table-headers">
-          <th class="expenses-headers-cell">Date</th>
-          <th class="expenses-headers-cell">Amount</th>
-          <th class="expenses-headers-cell">Type</th>
-        </tr>
-        <tbody class="income-content">
-          {incomeTableRows}
-        </tbody>
-        </table>
+      <div class="grid-container">
+        <div>
+          <table class="income-table-t">
+            <th colspan="3"> Income </th>
+              <tr class="expenses-table-headers">
+                <th class="expenses-headers-cell">Date</th>
+                <th class="expenses-headers-cell">Amount</th>
+                <th class="expenses-headers-cell">Type</th>
+              </tr>
+              <tbody class="income-content">
+                {incomeTableRows}
+              </tbody>
+          </table>
+          <IncomeTotal />
+          <Categories />
+          <ExpensesTotal />
+        </div>
+        <div>
+          <div class="expenses-table">
+          <table class="expenses-table-t" aria-label="Budget">
+            <th colspan="3"> Expenses </th>
+            <tr class="expenses-table-headers">
+              <th class="expenses-headers-cell">Date</th>
+              <th class="expenses-headers-cell">Amount</th>
+              <th class="expenses-headers-cell">Type</th>
+            </tr>
+            <tbody class="expenses-content">
+              {expensesTableRows}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <IncomeTotal />
-      <Categories />
-      <ExpensesTotal />
-      <div class="expenses-table">
-      <table class="expenses-table-t" aria-label="Budget">
-        <th colspan="3"> Expenses </th>
-        <tr class="expenses-table-headers">
-          <th class="expenses-headers-cell">Date</th>
-          <th class="expenses-headers-cell">Amount</th>
-          <th class="expenses-headers-cell">Type</th>
-        </tr>
-        <tbody class="expenses-content">
-          {expensesTableRows}
-        </tbody>
-      </table>
-      {budget[0].Type}
     </div>
   </>
   )

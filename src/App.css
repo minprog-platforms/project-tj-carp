@@ -15,46 +15,37 @@ th {
   text-align: center
 }
 
+.grid-container {
+  display: inline-grid;
+  grid-template-columns: 33% 67%;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 10px;
+}
+
 .expenses-table-t {
-  width: 10%;
+  width: 100%;
   border: 1px solid #000000;
   border-collapse: collapse;
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .income-table-t {
-  width: 10%;
+  width: 100%;
   border: 1px solid #000000;
   border-collapse: collapse;
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  transform: translate(-50%, -50%);
 }
 
 .total-income {
   border: 1px solid #000000;
   border-collapse: collapse;
-  position: absolute;
-  top: 30%;
-  left: 5%;
 }
 
 .total-expenses {
   border: 1px solid #000000;
   border-collapse: collapse;
-  position: absolute;
-  bottom: 10%;
-  left: 5%;
 }
 
 .categories {
   border: 1px solid #000000;
   border-collapse: collapse;
-  position: absolute;
-  top: 50%;
-  left: 5%;
 }
