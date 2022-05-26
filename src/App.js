@@ -16,12 +16,7 @@ function Cell(props) {
     <div>
       <FormControl variant="standard" sx={{ m: 1, mt: 3, width: '15ch' }}>
           <Input
-            id="standard-adornment-weight"
             onChange={event => props.onCellChange(event.target.value)}
-            aria-describedby="standard-weight-helper-text"
-            inputProps={{
-              'aria-label': 'weight',
-            }}
           />
         </FormControl>
       </div>
@@ -34,8 +29,7 @@ function MoneyCell(props) {
     <FormControl fullWidth sx={{ m: 1, width:'15ch' }} variant="standard">
       <InputLabel htmlFor="standard-adornment-amount"></InputLabel>
       <Input
-        id="standard-adornment-amount"
-        onChange={handleChange('amount')}
+        onChange={event => props.onCellChange(event.target.value)}
         startAdornment={<InputAdornment position="start">€</InputAdornment>}
       />
     </FormControl>
@@ -92,6 +86,21 @@ const handleChange = (prop) => (event) => {
 };
 
 function Budget() {
+  const [expenses, setExpenses] = useState([{Date: null, Amount: null, Type: null}])
+  const [income, setIncome] = useState([{Date: null, Amount: null, Type: null}])
+  
+  /*if (localStorage.getItem('expenses')){
+    expenses = localStorage.getItem('expenses')
+  } else {
+    localStorage.setItem('expenses', expenses)
+  }
+
+  if (localStorage.getItem('income')){
+    income = localStorage.getItem('income')
+  } else {
+    localStorage.setItem('income', income)
+  }*/
+
   const createSetCell = (value, setValue) => {
     return (index, type, amount) => {
       const newValue = [...value]
@@ -103,14 +112,15 @@ function Budget() {
       else {
         setValue(newValue)
       }
+      if (value === expenses){
+        localStorage.setItem('expenses', value)
+      } else if (value === income){
+        localStorage.setItem('income', value)
+      }
     }
   }
 
-  const [expenses, setExpenses] = useState([{Date: null, Amount: null, Type: null}])
-
   const setExpenseCell = createSetCell(expenses, setExpenses)
-
-  const [income, setIncome] = useState([{Date: null, Amount: null, Type: null}])
 
   const setIncomeCell = createSetCell(income, setIncome)
 
@@ -119,7 +129,7 @@ function Budget() {
         <td class="income-cell"><Cell type='Date' onCellChange={(value) => setIncomeCell(index, 'Date', value)}/></td>
         <td class="income-money-cell"><MoneyCell type='Amount' onCellChange={(value) => setIncomeCell(index, 'Amount', value)}/></td>
         <td class="income-cell"><Cell type='Type' onCellChange={(value) => setIncomeCell(index, 'Type', value)}/></td>
-      </tr>
+    </tr>
     ))
 
   const expensesTableRows = expenses.map((row, index) => (
@@ -127,29 +137,38 @@ function Budget() {
         <td class="expenses-cell"><Cell type='Date' onCellChange={(value) => setExpenseCell(index, 'Date', value)}/></td>
         <td class="expenses-money-cell"><MoneyCell type='Amount' onCellChange={(value) => setExpenseCell(index, 'Amount', value)}/></td>
         <td class="expenses-cell"><Cell type='Type' onCellChange={(value) => setExpenseCell(index, 'Type', value)}/></td>
-      </tr>
+    </tr>
     ))
+  
+  const incomeTotal = income.map((row, index) =>  
+  (income[index]['Amount'] !== null) ?
+    (incomeTotal = income[index]['Amount'],
+    console.log(incomeTotal)) :
+    console.log('boing')    
+  )
 
   return (
     <>
-      <div class="grid-container">
-        <div>
-          <table class="income-table-t">
-            <th colspan="3"> Income </th>
-              <tr class="expenses-table-headers">
-                <th class="expenses-headers-cell">Date</th>
-                <th class="expenses-headers-cell">Amount</th>
-                <th class="expenses-headers-cell">Type</th>
-              </tr>
-              <tbody class="income-content">
-                {incomeTableRows}
-              </tbody>
-          </table>
-          <IncomeTotal />
-          <Categories />
-          <ExpensesTotal />
+      <div class="screen">
+        <div class="left-grid-container">
+          <div>
+            <table class="income-table-t">
+              <th colspan="3"> Income </th>
+                <tr class="expenses-table-headers">
+                  <th class="expenses-headers-cell">Date</th>
+                  <th class="expenses-headers-cell">Amount</th>
+                  <th class="expenses-headers-cell">Type</th>
+                </tr>
+                <tbody class="income-content">
+                  {incomeTableRows}
+                </tbody>
+            </table>
+          </div>
+          <div><IncomeTotal /></div>
+          <div><Categories /></div>
+          <div><ExpensesTotal /></div>
         </div>
-        <div>
+        <div class="right-grid-container">
           <div class="expenses-table">
           <table class="expenses-table-t" aria-label="Budget">
             <th colspan="3"> Expenses </th>
