@@ -80,6 +80,14 @@ function Categories() {
   </>)
 }
 
+/*function ClearButton(props) {
+  return (
+    <button onClick = {() => props.handleClick(props.action)}>
+      Clear
+    </button>
+  )
+}*/
+
 const handleChange = (prop) => (event) => {
   const [values, setValues] = useState('0')
   setValues({ ...values, [prop]: event.target.value });
@@ -89,17 +97,27 @@ function Budget() {
   const [expenses, setExpenses] = useState([{Date: null, Amount: null, Type: null}])
   const [income, setIncome] = useState([{Date: null, Amount: null, Type: null}])
   
-  /*if (localStorage.getItem('expenses')){
-    expenses = localStorage.getItem('expenses')
+  /*if (localStorage.hasOwn('expenses')){
+    expenses = JSON.parse(localStorage.getItem('expenses'));
+    console.log('boing')
   } else {
-    localStorage.setItem('expenses', expenses)
+    localStorage.setItem('expenses', expenses);
   }
 
-  if (localStorage.getItem('income')){
-    income = localStorage.getItem('income')
+  if (localStorage.hasOwn('income')){
+    income = JSON.parse(localStorage.getItem('income'));
   } else {
-    localStorage.setItem('income', income)
+    localStorage.setItem('income', income);
   }*/
+
+  /*const [incomeTotal, setIncomeTotal] = useState([])
+  const incomeTotal = income.map((row, index) => ( 
+    (income[index]['Amount'] !== null) ?
+      (newIncomeTotal += income[index]['Amount'],
+      incomeTotal = 
+      console.log(incomeTotal)) :
+      console.log('boing')    
+  ))*/
 
   const createSetCell = (value, setValue) => {
     return (index, type, amount) => {
@@ -113,9 +131,11 @@ function Budget() {
         setValue(newValue)
       }
       if (value === expenses){
-        localStorage.setItem('expenses', value)
+        const exstring = JSON.stringify(value)
+        localStorage.setItem('expenses', exstring)
       } else if (value === income){
-        localStorage.setItem('income', value)
+        const instring = JSON.stringify(value)
+        localStorage.setItem('income', instring)
       }
     }
   }
@@ -127,7 +147,7 @@ function Budget() {
   const incomeTableRows = income.map((row, index) => (
     <tr class="income-row">
         <td class="income-cell"><Cell type='Date' onCellChange={(value) => setIncomeCell(index, 'Date', value)}/></td>
-        <td class="income-money-cell"><MoneyCell type='Amount' onCellChange={(value) => setIncomeCell(index, 'Amount', value)}/></td>
+        <td class="income-money-cell"><MoneyCell type='Amount' onCellChange={(value) => setIncomeCell(index, 'Amount', value) /*SETINCOMETOTAL HERE */}/></td>
         <td class="income-cell"><Cell type='Type' onCellChange={(value) => setIncomeCell(index, 'Type', value)}/></td>
     </tr>
     ))
@@ -135,17 +155,10 @@ function Budget() {
   const expensesTableRows = expenses.map((row, index) => (
     <tr class="expenses-row">
         <td class="expenses-cell"><Cell type='Date' onCellChange={(value) => setExpenseCell(index, 'Date', value)}/></td>
-        <td class="expenses-money-cell"><MoneyCell type='Amount' onCellChange={(value) => setExpenseCell(index, 'Amount', value)}/></td>
+        <td class="expenses-money-cell"><MoneyCell type='Amount' onCellChange={(value) => setExpenseCell(index, 'Amount', value) /*SETEXPENSESTOTAL HERE */}/></td>
         <td class="expenses-cell"><Cell type='Type' onCellChange={(value) => setExpenseCell(index, 'Type', value)}/></td>
     </tr>
     ))
-  
-  const incomeTotal = income.map((row, index) =>  
-  (income[index]['Amount'] !== null) ?
-    (incomeTotal = income[index]['Amount'],
-    console.log(incomeTotal)) :
-    console.log('boing')    
-  )
 
   return (
     <>
