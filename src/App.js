@@ -96,28 +96,30 @@ const handleChange = (prop) => (event) => {
 function Budget() {
   const [expenses, setExpenses] = useState([{Date: null, Amount: null, Type: null}])
   const [income, setIncome] = useState([{Date: null, Amount: null, Type: null}])
-  
-  /*if (localStorage.hasOwn('expenses')){
-    expenses = JSON.parse(localStorage.getItem('expenses'));
+
+  if ('expenses' in localStorage){
+    const newExpenses = JSON.parse(localStorage.getItem('expenses'));
+    setExpenses(newExpenses)
     console.log('boing')
   } else {
-    localStorage.setItem('expenses', expenses);
+    const exstring = JSON.stringify(expenses);
+    localStorage.setItem('expenses', exstring);
   }
 
-  if (localStorage.hasOwn('income')){
+  /*if (localStorage.hasOwn('income')){
     income = JSON.parse(localStorage.getItem('income'));
   } else {
-    localStorage.setItem('income', income);
+    const instring = JSON.stringify(income);
+    localStorage.setItem('income', instring);
   }*/
 
-  /*const [incomeTotal, setIncomeTotal] = useState([])
-  const incomeTotal = income.map((row, index) => ( 
-    (income[index]['Amount'] !== null) ?
-      (newIncomeTotal += income[index]['Amount'],
-      incomeTotal = 
-      console.log(incomeTotal)) :
-      console.log('boing')    
-  ))*/
+  const [incomeTotal, setIncomeTotal] = useState([])
+  const newIncomeTotal = income.map((row, index) => ( 
+    (const newIncomeTotal = income[index]['Amount']
+     setIncomeTotal(newIncomeTotal)
+     console.log(incomeTotal)) :
+     console.log('boing')        
+  ))
 
   const createSetCell = (value, setValue) => {
     return (index, type, amount) => {
@@ -177,7 +179,14 @@ function Budget() {
                 </tbody>
             </table>
           </div>
-          <div><IncomeTotal /></div>
+          <div>
+            <table>
+              <th> Total income </th>
+                <tbody class="total-income-content">
+                  incomeTotal
+                </tbody>
+            </table>
+          </div>
           <div><Categories /></div>
           <div><ExpensesTotal /></div>
         </div>
