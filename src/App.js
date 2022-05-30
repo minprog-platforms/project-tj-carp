@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 import * as React from 'react';
@@ -16,6 +15,7 @@ function Cell(props) {
     <div>
       <FormControl variant="standard" sx={{ m: 1, mt: 3, width: '15ch' }}>
           <Input
+            value={props.value}
             onChange={event => props.onCellChange(event.target.value)}
           />
         </FormControl>
@@ -29,6 +29,7 @@ function MoneyCell(props) {
     <FormControl fullWidth sx={{ m: 1, width:'15ch' }} variant="standard">
       <InputLabel htmlFor="standard-adornment-amount"></InputLabel>
       <Input
+        value={props.value}
         onChange={event => props.onCellChange(event.target.value)}
         startAdornment={<InputAdornment position="start">€</InputAdornment>}
       />
@@ -62,7 +63,7 @@ function ExpensesTotal() {
       <table>
       <th> Total expenses </th>
         <tbody class="total-expenses-content">
-          total expensies
+          total expenses
         </tbody>
       </table>
     </div>
@@ -74,9 +75,7 @@ function Categories() {
 
   return (
   <>
-    <div class="categories">
-      Categories
-    </div>
+    
   </>)
 }
 
@@ -94,32 +93,28 @@ const handleChange = (prop) => (event) => {
 };
 
 function Budget() {
-  const [expenses, setExpenses] = useState([{Date: null, Amount: null, Type: null}])
-  const [income, setIncome] = useState([{Date: null, Amount: null, Type: null}])
-
-  if ('expenses' in localStorage){
-    const newExpenses = JSON.parse(localStorage.getItem('expenses'));
-    setExpenses(newExpenses)
-    console.log('boing')
-  } else {
-    const exstring = JSON.stringify(expenses);
-    localStorage.setItem('expenses', exstring);
+  const getInitialValues = (type) => {
+    if (type in localStorage){
+      return JSON.parse(localStorage.getItem(type))
+    } 
+    
+    return [{Date: null, Amount: null, Type: null}]
   }
 
-  /*if (localStorage.hasOwn('income')){
-    income = JSON.parse(localStorage.getItem('income'));
-  } else {
-    const instring = JSON.stringify(income);
-    localStorage.setItem('income', instring);
-  }*/
+  const [expenses, setExpenses] = useState(getInitialValues('expenses'))
+  const [income, setIncome] = useState(getInitialValues('income'))
 
-  const [incomeTotal, setIncomeTotal] = useState([])
-  const newIncomeTotal = income.map((row, index) => ( 
-    (const newIncomeTotal = income[index]['Amount']
-     setIncomeTotal(newIncomeTotal)
-     console.log(incomeTotal)) :
-     console.log('boing')        
-  ))
+  const incomeTotal = income.map(row => {
+    const float = parseFloat(row['Amount'])
+
+    return (float === NaN) ? 0 : float
+  }).reduce((a, b) => a + b, 0)
+
+  const valueTotal = (value) => value.map(row => {
+    const float = parseFloat(row['Amount'])
+
+    return (float === NaN) ? 0 : float
+  }).reduce((a, b) => a + b, 0)
 
   const createSetCell = (value, setValue) => {
     return (index, type, amount) => {
@@ -148,17 +143,17 @@ function Budget() {
 
   const incomeTableRows = income.map((row, index) => (
     <tr class="income-row">
-        <td class="income-cell"><Cell type='Date' onCellChange={(value) => setIncomeCell(index, 'Date', value)}/></td>
-        <td class="income-money-cell"><MoneyCell type='Amount' onCellChange={(value) => setIncomeCell(index, 'Amount', value) /*SETINCOMETOTAL HERE */}/></td>
-        <td class="income-cell"><Cell type='Type' onCellChange={(value) => setIncomeCell(index, 'Type', value)}/></td>
+        <td class="income-cell"><Cell value={row.Date} type='Date' onCellChange={(value) => setIncomeCell(index, 'Date', value)}/></td>
+        <td class="income-money-cell"><MoneyCell value={row.Amount} type='Amount' onCellChange={(value) => setIncomeCell(index, 'Amount', value) /*SETINCOMETOTAL HERE?*/}/></td>
+        <td class="income-cell"><Cell value={row.Type} type='Type' onCellChange={(value) => setIncomeCell(index, 'Type', value)}/></td>
     </tr>
     ))
 
   const expensesTableRows = expenses.map((row, index) => (
     <tr class="expenses-row">
-        <td class="expenses-cell"><Cell type='Date' onCellChange={(value) => setExpenseCell(index, 'Date', value)}/></td>
-        <td class="expenses-money-cell"><MoneyCell type='Amount' onCellChange={(value) => setExpenseCell(index, 'Amount', value) /*SETEXPENSESTOTAL HERE */}/></td>
-        <td class="expenses-cell"><Cell type='Type' onCellChange={(value) => setExpenseCell(index, 'Type', value)}/></td>
+        <td class="expenses-cell"><Cell value={row.Date} type='Date' onCellChange={(value) => setExpenseCell(index, 'Date', value)}/></td>
+        <td class="expenses-money-cell"><MoneyCell value={row.Amount} type='Amount' onCellChange={(value) => setExpenseCell(index, 'Amount', value) /*SETEXPENSESTOTAL HERE?*/}/></td>
+        <td class="expenses-cell"><Cell value={row.Type} type='Type' onCellChange={(value) => setExpenseCell(index, 'Type', value)}/></td>
     </tr>
     ))
 
@@ -179,16 +174,25 @@ function Budget() {
                 </tbody>
             </table>
           </div>
-          <div>
+          <div class="total-income">
             <table>
-              <th> Total income </th>
+              <th colspan="3"> Total income </th>
                 <tbody class="total-income-content">
-                  incomeTotal
+                  {valueTotal(income)}
                 </tbody>
             </table>
           </div>
-          <div><Categories /></div>
-          <div><ExpensesTotal /></div>
+          <div class="categories">
+            Categories
+          </div>
+          <div>
+            <table>
+              <th> Total expenses </th>
+                <tbody class="total-expenses-content">
+                  {valueTotal(expenses)}
+                </tbody>
+            </table>
+          </div>
         </div>
         <div class="right-grid-container">
           <div class="expenses-table">
