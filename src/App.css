@@ -9,10 +9,9 @@ html {
   box-sizing: inherit;
 }
 
-th {
+th, td, tr, table {
   border: 1px solid #6f6f6f;
   border-collapse: collapse;
-  background:rgb(255, 229, 135);
   text-align: center
 }
 
@@ -51,12 +50,14 @@ th {
 }
 
 .total-income {
+  width: 100%;
   border: 1px solid #6f6f6f;
   border-collapse: collapse;
   background:rgb(255, 229, 135);
 }
 
 .total-expenses {
+  width: 100%;
   border: 1px solid #6f6f6f;
   border-collapse: collapse;
   background:rgb(255, 229, 135);

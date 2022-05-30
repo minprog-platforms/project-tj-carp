@@ -87,11 +87,6 @@ function Categories() {
   )
 }*/
 
-const handleChange = (prop) => (event) => {
-  const [values, setValues] = useState('0')
-  setValues({ ...values, [prop]: event.target.value });
-};
-
 function Budget() {
   const getInitialValues = (type) => {
     if (type in localStorage){
@@ -105,6 +100,10 @@ function Budget() {
   const [income, setIncome] = useState(getInitialValues('income'))
 
   const valueTotal = (value) => value.map(row => {
+    return (row['Amount'] === null) ? 0 : parseFloat(row['Amount'])
+  }).reduce((a, b) => a + b, 0)
+
+  const categoriesTotal = (value) => value.map(row => {
     return (row['Amount'] === null) ? 0 : parseFloat(row['Amount'])
   }).reduce((a, b) => a + b, 0)
 
@@ -169,20 +168,29 @@ function Budget() {
           <div class="total-income">
             <table>
               <th colspan="3"> Total income </th>
-                <tbody class="total-income-content">
-                  {valueTotal(income)}
-                </tbody>
+                <tr>
+                  <tbody class="total-income-content">
+                    {valueTotal(income)}
+                  </tbody>
+                </tr>
             </table>
           </div>
           <div class="categories">
-            Categories
-          </div>
-          <div>
             <table>
-              <th> Total expenses </th>
-                <tbody class="total-expenses-content">
-                  {valueTotal(expenses)}
-                </tbody>
+              <th>Categories</th>
+                <tr>necessary</tr>
+                <tr>monthly</tr>
+                <tr>fun</tr>
+            </table>
+          </div>
+          <div class="total-expenses">
+            <table>
+              <th colspan="5"> Total expenses </th>
+                <tr>
+                  <td class="total-expenses-content">
+                    {valueTotal(expenses)}
+                  </td>
+                </tr>
             </table>
           </div>
         </div>
