@@ -104,16 +104,8 @@ function Budget() {
   const [expenses, setExpenses] = useState(getInitialValues('expenses'))
   const [income, setIncome] = useState(getInitialValues('income'))
 
-  const incomeTotal = income.map(row => {
-    const float = parseFloat(row['Amount'])
-
-    return (float === NaN) ? 0 : float
-  }).reduce((a, b) => a + b, 0)
-
   const valueTotal = (value) => value.map(row => {
-    const float = parseFloat(row['Amount'])
-
-    return (float === NaN) ? 0 : float
+    return (row['Amount'] === null) ? 0 : parseFloat(row['Amount'])
   }).reduce((a, b) => a + b, 0)
 
   const createSetCell = (value, setValue) => {
