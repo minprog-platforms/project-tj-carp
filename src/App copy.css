@@ -1,0 +1,68 @@
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+th {
+  border: 1px solid #6f6f6f;
+  border-collapse: collapse;
+  background:rgb(255, 229, 135);
+  text-align: center
+}
+
+.screen {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  padding: 20px;
+  gap: 20px;
+}
+
+.left-grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  gap: 20px;
+}
+
+.right-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+}
+
+.expenses-table-t {
+  width: 50%;
+  border: 1px solid #6f6f6f;
+  border-collapse: collapse;
+  background:rgb(255, 229, 135);
+}
+
+.income-table-t {
+  width: 100%;
+  border: 1px solid #6f6f6f;
+  border-collapse: collapse;
+  background:rgb(255, 229, 135);
+}
+
+.total-income {
+  border: 1px solid #6f6f6f;
+  border-collapse: collapse;
+  background:rgb(255, 229, 135);
+}
+
+.total-expenses {
+  border: 1px solid #6f6f6f;
+  border-collapse: collapse;
+  background:rgb(255, 229, 135);
+}
+
+.categories {
+  border: 1px solid #6f6f6f;
+  border-collapse: collapse;
+}
