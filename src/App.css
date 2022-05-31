@@ -2,14 +2,7 @@ html {
   font-size: 95%;
   color:rgb(47, 47, 47);
   letter-spacing: 0.75px;
-  box-sizing: border-box;
   background-color: rgb(250, 238, 201);
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
 }
 
 button {
@@ -68,5 +61,15 @@ th, td, tr, table {
 .categories, .spendable {
   width: 50%;
   background:rgb(201, 219, 255);
+  text-align: center
+}
+
+footer {
+  font-size: 50%;
+  color:rgb(47, 47, 47);
+  letter-spacing: 0.75px;
+  width: 75%;
+  border: 2px ridge rgb(255, 238, 216);
+  background:rgb(177, 177, 177);
   text-align: center
 }

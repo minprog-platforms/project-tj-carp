@@ -221,7 +221,7 @@ function Budget() {
     <>
       <div class="screen">
         <div class="left-grid-container">
-          <IncomeTable income={income.slice(0, 18)} setIncomeCell={setIncomeCell}/>
+          <IncomeTable income={income.slice(0, 17)} setIncomeCell={setIncomeCell}/>
           <IncomeTotal income={income} valueTotal={valueTotal}/>
           <ExpensesTotal expenses={expenses} valueTotal={valueTotal} />
           <Categories categoriesTotal={categoriesTotal} />
@@ -233,6 +233,15 @@ function Budget() {
           <ExpensesTable expenses={expenses.slice(27, 54)} setExpenseCell={(index, type, value) => setExpenseCell(index + 27, type, value)}/>
           <ExpensesTable expenses={expenses.slice(54, 81)} setExpenseCell={(index, type, value) => setExpenseCell(index + 54, type, value)}/>
       </div>
+      <footer>
+        <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+          <img alt="Creative Commons License" src="80x15.png"/>
+        </a>
+        This work is licensed under a 
+          <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+          Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+          </a>
+      </footer>
     </div>
   </>
   )
