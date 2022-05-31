@@ -13,7 +13,7 @@ function App() {
 function Cell(props) {
   return (
     <div>
-      <FormControl fullWidth sx={{ m: 1, width: '15ch' }} variant="standard">
+      <FormControl fullWidth sx={{ width: '15ch' }} variant="standard">
           <Input
             value={props.value}
             onChange={event => props.onCellChange(event.target.value)}
@@ -26,7 +26,7 @@ function Cell(props) {
 function MoneyCell(props) {
   return (
   <div>
-    <FormControl fullWidth sx={{ m: 1, width:'15ch' }} variant="standard">
+    <FormControl fullWidth sx={{ width:'15ch' }} variant="standard">
       <Input
         value={props.value}
         onChange={event => props.onCellChange(event.target.value)}
@@ -40,13 +40,13 @@ function MoneyCell(props) {
 function IncomeTotal(props) {
   return (
   <>
-    <div class="total-income">
-      <table>
-        <th colspan="3"> Total income </th>
+    <div>
+      <table class="total-income">
+        <th> Total income </th>
           <tr>
-            <tbody class="total-income-content">
-              {props.valueTotal(props.income)}
-            </tbody>
+            <td class="total-income-content">
+              €{props.valueTotal(props.income)}
+            </td>
           </tr>
       </table>
     </div>
@@ -56,12 +56,12 @@ function IncomeTotal(props) {
 function ExpensesTotal(props) {
   return (
   <>
-    <div class="total-expenses">
-      <table>
-        <th colspan="5"> Total expenses </th>
+    <div>
+      <table class="total-expenses">
+        <th> Total expenses </th>
           <tr>
             <td class="total-expenses-content">
-              {props.valueTotal(props.expenses)}
+              €{props.valueTotal(props.expenses)}
             </td>
           </tr>
       </table>
@@ -96,7 +96,7 @@ function ExpensesTable(props) {
     ))
 
   return (
-    <div class="expenses-table">
+    <div>
       <table class="expenses-table-t" aria-label="Budget">
         <th colspan="3"> Expenses </th>
         <tr class="expenses-table-headers">
@@ -151,11 +151,13 @@ function Budget() {
   const [income, setIncome] = useState(getInitialValues('income'))
 
   const valueTotal = (value) => value.map(row => {
-    return (row['Amount'] === null) ? 0 : parseFloat(row['Amount'])
+    return (row['Amount'] === null || row['Amount'] === "") ? 0 : parseFloat(row['Amount'])
   }).reduce((a, b) => a + b, 0)
 
-  const categoriesTotal = (value) => value.map(row => {
-    return (row['Amount'] === null) ? 0 : parseFloat(row['Amount'])
+  const categoriesTotal = (type) => expenses.map(row => {
+    return (
+      row['Type'] == type ? row['Amount'] === null || row['Amount'] === "" ? 0 : parseFloat(row['Amount']) : 0
+      )
   }).reduce((a, b) => a + b, 0)
 
   const createSetCell = (value, setValue) => {
@@ -193,12 +195,21 @@ function Budget() {
         <div class="left-grid-container">
           <IncomeTable income={income} setIncomeCell={setIncomeCell}/>
           <IncomeTotal income={income} valueTotal={valueTotal}/>
-          <div class="categories">
-            <table>
-              <th>Categories</th>
-                <tr>necessary</tr>
-                <tr>monthly</tr>
-                <tr>fun</tr>
+          <div>
+            <table class="categories">
+              <th colspan="2">Categories</th>
+                <tr>
+                  <td>Necessary</td>
+                  <td>€{categoriesTotal('Necessary')}</td>
+                </tr>
+                <tr>
+                  <td>Monthly</td>
+                  <td>€{categoriesTotal('Monthly')}</td>
+                </tr>
+                <tr>
+                  <td>Fun</td>
+                  <td>€{categoriesTotal('Fun')}</td>
+                </tr>
             </table>
           </div>
           <ExpensesTotal expenses={expenses} valueTotal={valueTotal} />

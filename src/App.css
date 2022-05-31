@@ -1,5 +1,6 @@
 html {
   font-size: 100%;
+  color:rgb(47, 47, 47);
   box-sizing: border-box;
 }
 
@@ -10,9 +11,14 @@ html {
 }
 
 th, td, tr, table {
-  border: 1px solid #6f6f6f;
+  border: 2px solid rgb(255, 225, 187);
+  border-style: ridge;
   border-collapse: collapse;
   text-align: center
+}
+
+.expenses-table, .income-table {
+  
 }
 
 .screen {
@@ -35,35 +41,15 @@ th, td, tr, table {
   width: 100%;
 }
 
-.expenses-table-t {
+.expenses-table-t, .income-table-t {
+  width: 50%;
+  background:rgb(255, 207, 149);
+}
+
+.total-income, .total-expenses, .categories {
   width: 50%;
   border: 1px solid #6f6f6f;
   border-collapse: collapse;
-  background:rgb(255, 229, 135);
-}
-
-.income-table-t {
-  width: 100%;
-  border: 1px solid #6f6f6f;
-  border-collapse: collapse;
-  background:rgb(255, 229, 135);
-}
-
-.total-income {
-  width: 100%;
-  border: 1px solid #6f6f6f;
-  border-collapse: collapse;
-  background:rgb(255, 229, 135);
-}
-
-.total-expenses {
-  width: 100%;
-  border: 1px solid #6f6f6f;
-  border-collapse: collapse;
-  background:rgb(255, 229, 135);
-}
-
-.categories {
-  border: 1px solid #6f6f6f;
-  border-collapse: collapse;
+  background:rgb(255, 207, 149);
+  text-align: center
 }
