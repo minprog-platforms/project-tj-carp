@@ -193,7 +193,7 @@ function Budget() {
     <>
       <div class="screen">
         <div class="left-grid-container">
-          <IncomeTable income={income} setIncomeCell={setIncomeCell}/>
+          <IncomeTable income={income.slice(0, 18)} setIncomeCell={setIncomeCell}/>
           <IncomeTotal income={income} valueTotal={valueTotal}/>
           <div>
             <table class="categories">
@@ -216,8 +216,9 @@ function Budget() {
           <ClearButton handleClick = {clearClick}/>
         </div>
         <div class="right-grid-container">
-          <ExpensesTable expenses={expenses.slice(0, 4)} setExpenseCell={setExpenseCell}/>
-          <ExpensesTable expenses={expenses.slice(4, 8)} setExpenseCell={(index, type, value) => setExpenseCell(index + 4, type, value)}/>
+          <ExpensesTable expenses={expenses.slice(0, 27)} setExpenseCell={setExpenseCell}/>
+          <ExpensesTable expenses={expenses.slice(27, 54)} setExpenseCell={(index, type, value) => setExpenseCell(index + 27, type, value)}/>
+          <ExpensesTable expenses={expenses.slice(54, 81)} setExpenseCell={(index, type, value) => setExpenseCell(index + 54, type, value)}/>
       </div>
     </div>
   </>
