@@ -13,7 +13,7 @@ function App() {
 function Cell(props) {
   return (
     <div>
-      <FormControl variant="standard" sx={{ m: 1, mt: 3, width: '15ch' }}>
+      <FormControl fullWidth sx={{ m: 1, width: '15ch' }} variant="standard">
           <Input
             value={props.value}
             onChange={event => props.onCellChange(event.target.value)}
@@ -27,7 +27,6 @@ function MoneyCell(props) {
   return (
   <div>
     <FormControl fullWidth sx={{ m: 1, width:'15ch' }} variant="standard">
-      <InputLabel htmlFor="standard-adornment-amount"></InputLabel>
       <Input
         value={props.value}
         onChange={event => props.onCellChange(event.target.value)}
@@ -38,33 +37,33 @@ function MoneyCell(props) {
   )
 }
 
-function IncomeTotal() {
-  const [value, setValue] = useState('0')
-
+function IncomeTotal(props) {
   return (
   <>
     <div class="total-income">
       <table>
-      <th> Total income </th>
-        <tbody class="total-income-content">
-          total income
-        </tbody>
+        <th colspan="3"> Total income </th>
+          <tr>
+            <tbody class="total-income-content">
+              {props.valueTotal(props.income)}
+            </tbody>
+          </tr>
       </table>
     </div>
   </>)
 }
 
-function ExpensesTotal() {
-  const [value, setValue] = useState('0')
-
+function ExpensesTotal(props) {
   return (
   <>
     <div class="total-expenses">
       <table>
-      <th> Total expenses </th>
-        <tbody class="total-expenses-content">
-          total expenses
-        </tbody>
+        <th colspan="5"> Total expenses </th>
+          <tr>
+            <td class="total-expenses-content">
+              {props.valueTotal(props.expenses)}
+            </td>
+          </tr>
       </table>
     </div>
   </>)
@@ -79,13 +78,65 @@ function Categories() {
   </>)
 }
 
-/*function ClearButton(props) {
+function ClearButton(props) {
   return (
-    <button onClick = {() => props.handleClick(props.action)}>
+    <button onClick = {() => props.handleClick()}>
       Clear
     </button>
   )
-}*/
+}
+
+function ExpensesTable(props) {
+  const expensesTableRows = props.expenses.map((row, index) => (
+    <tr class="expenses-row">
+        <td class="expenses-cell"><Cell value={row.Date} type='Date' onCellChange={(value) => props.setExpenseCell(index, 'Date', value)}/></td>
+        <td class="expenses-money-cell"><MoneyCell value={row.Amount} type='Amount' onCellChange={(value) => props.setExpenseCell(index, 'Amount', value)}/></td>
+        <td class="expenses-cell"><Cell value={row.Type} type='Type' onCellChange={(value) => props.setExpenseCell(index, 'Type', value)}/></td>
+    </tr>
+    ))
+
+  return (
+    <div class="expenses-table">
+      <table class="expenses-table-t" aria-label="Budget">
+        <th colspan="3"> Expenses </th>
+        <tr class="expenses-table-headers">
+          <th class="expenses-headers-cell">Date</th>
+          <th class="expenses-headers-cell">Amount</th>
+          <th class="expenses-headers-cell">Type</th>
+        </tr>
+        <tbody class="expenses-content">
+          {expensesTableRows}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+function IncomeTable(props) {
+  const incomeTableRows = props.income.map((row, index) => (
+    <tr class="income-row">
+        <td class="income-cell"><Cell value={row.Date} type='Date' onCellChange={(value) => props.setIncomeCell(index, 'Date', value)}/></td>
+        <td class="income-money-cell"><MoneyCell value={row.Amount} type='Amount' onCellChange={(value) => props.setIncomeCell(index, 'Amount', value)}/></td>
+        <td class="income-cell"><Cell value={row.Type} type='Type' onCellChange={(value) => props.setIncomeCell(index, 'Type', value)}/></td>
+    </tr>
+    ))
+
+  return (
+    <div>
+      <table class="income-table-t">
+        <th colspan="3"> Income </th>
+          <tr class="income-table-headers">
+            <th class="income-headers-cell">Date</th>
+            <th class="income-headers-cell">Amount</th>
+            <th class="income-headers-cell">Type</th>
+          </tr>
+          <tbody class="income-content">
+            {incomeTableRows}
+          </tbody>
+      </table>
+    </div>
+  )
+}
 
 function Budget() {
   const getInitialValues = (type) => {
@@ -128,53 +179,20 @@ function Budget() {
     }
   }
 
+  const screenHeight = window.screen.height
+
   const setExpenseCell = createSetCell(expenses, setExpenses)
 
   const setIncomeCell = createSetCell(income, setIncome)
 
-  const incomeTableRows = income.map((row, index) => (
-    <tr class="income-row">
-        <td class="income-cell"><Cell value={row.Date} type='Date' onCellChange={(value) => setIncomeCell(index, 'Date', value)}/></td>
-        <td class="income-money-cell"><MoneyCell value={row.Amount} type='Amount' onCellChange={(value) => setIncomeCell(index, 'Amount', value) /*SETINCOMETOTAL HERE?*/}/></td>
-        <td class="income-cell"><Cell value={row.Type} type='Type' onCellChange={(value) => setIncomeCell(index, 'Type', value)}/></td>
-    </tr>
-    ))
-
-  const expensesTableRows = expenses.map((row, index) => (
-    <tr class="expenses-row">
-        <td class="expenses-cell"><Cell value={row.Date} type='Date' onCellChange={(value) => setExpenseCell(index, 'Date', value)}/></td>
-        <td class="expenses-money-cell"><MoneyCell value={row.Amount} type='Amount' onCellChange={(value) => setExpenseCell(index, 'Amount', value) /*SETEXPENSESTOTAL HERE?*/}/></td>
-        <td class="expenses-cell"><Cell value={row.Type} type='Type' onCellChange={(value) => setExpenseCell(index, 'Type', value)}/></td>
-    </tr>
-    ))
+  const clearClick = () => {localStorage.clear(); window.location.reload()}
 
   return (
     <>
       <div class="screen">
         <div class="left-grid-container">
-          <div>
-            <table class="income-table-t">
-              <th colspan="3"> Income </th>
-                <tr class="expenses-table-headers">
-                  <th class="expenses-headers-cell">Date</th>
-                  <th class="expenses-headers-cell">Amount</th>
-                  <th class="expenses-headers-cell">Type</th>
-                </tr>
-                <tbody class="income-content">
-                  {incomeTableRows}
-                </tbody>
-            </table>
-          </div>
-          <div class="total-income">
-            <table>
-              <th colspan="3"> Total income </th>
-                <tr>
-                  <tbody class="total-income-content">
-                    {valueTotal(income)}
-                  </tbody>
-                </tr>
-            </table>
-          </div>
+          <IncomeTable income={income} setIncomeCell={setIncomeCell}/>
+          <IncomeTotal income={income} valueTotal={valueTotal}/>
           <div class="categories">
             <table>
               <th>Categories</th>
@@ -183,31 +201,12 @@ function Budget() {
                 <tr>fun</tr>
             </table>
           </div>
-          <div class="total-expenses">
-            <table>
-              <th colspan="5"> Total expenses </th>
-                <tr>
-                  <td class="total-expenses-content">
-                    {valueTotal(expenses)}
-                  </td>
-                </tr>
-            </table>
-          </div>
+          <ExpensesTotal expenses={expenses} valueTotal={valueTotal} />
+          <ClearButton handleClick = {clearClick}/>
         </div>
         <div class="right-grid-container">
-          <div class="expenses-table">
-          <table class="expenses-table-t" aria-label="Budget">
-            <th colspan="3"> Expenses </th>
-            <tr class="expenses-table-headers">
-              <th class="expenses-headers-cell">Date</th>
-              <th class="expenses-headers-cell">Amount</th>
-              <th class="expenses-headers-cell">Type</th>
-            </tr>
-            <tbody class="expenses-content">
-              {expensesTableRows}
-            </tbody>
-          </table>
-        </div>
+          <ExpensesTable expenses={expenses.slice(0, 4)} setExpenseCell={setExpenseCell}/>
+          <ExpensesTable expenses={expenses.slice(4, 8)} setExpenseCell={(index, type, value) => setExpenseCell(index + 4, type, value)}/>
       </div>
     </div>
   </>
