@@ -1,14 +1,27 @@
 html {
   font-size: 95%;
   color:rgb(47, 47, 47);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.75px;
   box-sizing: border-box;
+  background-color: rgb(250, 238, 201);
 }
 
 *,
 *::before,
 *::after {
   box-sizing: inherit;
+}
+
+button {
+  width: 25%;
+  background-color: rgb(225, 152, 152);
+  color: rgb(47, 47, 47);
+  border: 2px ridge rgb(255, 238, 216);
+  border-collapse: collapse;
+  box-shadow: 0px 0.5px 2px rgb(167, 167, 167);
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bolder;
+  letter-spacing: 1px;
 }
 
 table {
@@ -42,13 +55,18 @@ th, td, tr, table {
   width: 100%;
 }
 
-.expenses-table-t, .income-table-t {
+.income-table-t, .total-income {
+  width: 50%;
+  background:rgb(191, 217, 184)
+}
+
+.expenses-table-t, .total-expenses {
   width: 50%;
   background:rgb(255, 207, 149);
 }
 
-.total-income, .total-expenses, .categories {
+.categories, .spendable {
   width: 50%;
-  background:rgb(255, 207, 149);
+  background:rgb(201, 219, 255);
   text-align: center
 }

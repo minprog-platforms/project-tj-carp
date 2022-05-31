@@ -2,7 +2,6 @@ import './App.css';
 import { useState } from 'react';
 import * as React from 'react';
 import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 
@@ -69,12 +68,26 @@ function ExpensesTotal(props) {
   </>)
 }
 
-function Categories() {
-  const [value, setValue] = useState('0')
-
+function Categories(props) {
   return (
   <>
-    
+    <div>
+      <table class="categories">
+        <th colspan="2">Categories</th>
+          <tr>
+            <td>Necessary</td>
+            <td>€{props.categoriesTotal('Necessary')}</td>
+          </tr>
+          <tr>
+            <td>Monthly</td>
+            <td>€{props.categoriesTotal('Monthly')}</td>
+          </tr>
+          <tr>
+            <td>Fun</td>
+            <td>€{props.categoriesTotal('Fun')}</td>
+          </tr>
+      </table>
+    </div>
   </>)
 }
 
@@ -138,6 +151,23 @@ function IncomeTable(props) {
   )
 }
 
+function Spendable(props) {
+  return (
+  <>
+    <div>
+      <table class="spendable">
+        <th> Spendable </th>
+          <tr>
+            <td class="spendable-content">
+              €{props.valueTotal(props.income) - props.valueTotal(props.expenses)}
+            </td>
+          </tr>
+      </table>
+    </div>
+  </>)
+}
+
+
 function Budget() {
   const getInitialValues = (type) => {
     if (type in localStorage){
@@ -181,8 +211,6 @@ function Budget() {
     }
   }
 
-  const screenHeight = window.screen.height
-
   const setExpenseCell = createSetCell(expenses, setExpenses)
 
   const setIncomeCell = createSetCell(income, setIncome)
@@ -195,24 +223,9 @@ function Budget() {
         <div class="left-grid-container">
           <IncomeTable income={income.slice(0, 18)} setIncomeCell={setIncomeCell}/>
           <IncomeTotal income={income} valueTotal={valueTotal}/>
-          <div>
-            <table class="categories">
-              <th colspan="2">Categories</th>
-                <tr>
-                  <td>Necessary</td>
-                  <td>€{categoriesTotal('Necessary')}</td>
-                </tr>
-                <tr>
-                  <td>Monthly</td>
-                  <td>€{categoriesTotal('Monthly')}</td>
-                </tr>
-                <tr>
-                  <td>Fun</td>
-                  <td>€{categoriesTotal('Fun')}</td>
-                </tr>
-            </table>
-          </div>
           <ExpensesTotal expenses={expenses} valueTotal={valueTotal} />
+          <Categories categoriesTotal={categoriesTotal} />
+          <Spendable income={income} expenses={expenses} valueTotal={valueTotal}/>
           <ClearButton handleClick = {clearClick}/>
         </div>
         <div class="right-grid-container">
@@ -223,7 +236,6 @@ function Budget() {
     </div>
   </>
   )
-
 }
 
 export default App;
