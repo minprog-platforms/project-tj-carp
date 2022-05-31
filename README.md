@@ -1,4 +1,4 @@
-# Budgeting
+# Budgit
 ## TJ Leeuwerik
 
 ### Probleem
@@ -26,8 +26,8 @@ en uitgaves per (fiscale) maand en categorie teruggegeven. Structuur:
     - Div totaal verwacht besteedbaar inkomen
 
 ### Schetsen
-![App page sketch 1, of tables for inputting date, amount and type of income and expenses](doc/photo1651140945.jpeg)
-![App page sketch 2, of tables for inputting amounts and types of expected monthly income and expenses](doc/photo1651140944.jpeg)
+![Screen shot of Budgit, with tables for inputting date, amount and type of income and expenses](public/budgit1.png)
+![Screen shot of Budgit, with tables for inputting date, amount and type of income and expenses](public/budgit2.png)
 
 ### Libraries
 Ik ga wanneer ik meer competentie heb en dus beter weet wat ik wil eens kijken naar deze libraries: https://technostacks.com/blog/react-component-libraries
