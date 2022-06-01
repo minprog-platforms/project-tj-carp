@@ -25,9 +25,9 @@ en uitgaves per (fiscale) maand en categorie teruggegeven. Structuur:
     - Div totaal verwachte uitgaven
     - Div totaal verwacht besteedbaar inkomen
 
-### Schetsen
-![Screen shot of Budgit, with tables for inputting date, amount and type of income and expenses](public/budgit1.png)
-![Screen shot of Budgit, with tables for inputting date, amount and type of income and expenses](public/budgit2.png)
+### Screenshots
+<img alt="Screen shot of Budgit, with tables for inputting date, amount and type of income and expenses" src="public/budgit1.png" width=50%>
+<img alt="Screen shot of Budgit, with tables for inputting date, amount and type of income and expenses" src="public/budgit2.png" width=50%>
 
 ### Libraries
 Ik ga wanneer ik meer competentie heb en dus beter weet wat ik wil eens kijken naar deze libraries: https://technostacks.com/blog/react-component-libraries
