@@ -48,12 +48,12 @@ th, td, tr, table {
   width: 100%;
 }
 
-.income-table-t, .total-income {
+.income-table, .total-income {
   width: 50%;
   background:rgb(191, 217, 184)
 }
 
-.expenses-table-t, .total-expenses {
+.expenses-table, .total-expenses {
   width: 50%;
   background:rgb(255, 207, 149);
 }

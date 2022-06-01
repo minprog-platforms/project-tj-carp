@@ -23,7 +23,7 @@ function Cell(props) {
       </div>
       )
   }
-  
+
   return (
     <div>
       <FormControl fullWidth sx={{ width: '15ch' }} variant="standard">
@@ -43,7 +43,7 @@ function IncomeTotal(props) {
       <table class="total-income">
         <th> Total income </th>
           <tr>
-            <td class="total-income-content">
+            <td>
               €{props.valueTotal(props.income)}
             </td>
           </tr>
@@ -59,7 +59,7 @@ function ExpensesTotal(props) {
       <table class="total-expenses">
         <th> Total expenses </th>
           <tr>
-            <td class="total-expenses-content">
+            <td>
               €{props.valueTotal(props.expenses)}
             </td>
           </tr>
@@ -101,23 +101,23 @@ function ClearButton(props) {
 
 function ExpensesTable(props) {
   const expensesTableRows = props.expenses.map((row, index) => (
-    <tr class="expenses-row">
-        <td class="expenses-cell"><Cell value={row.Date} type='Date' onCellChange={(value) => props.setExpenseCell(index, 'Date', value)}/></td>
-        <td class="expenses-cell"><Cell value={row.Amount} type='Amount' onCellChange={(value) => props.setExpenseCell(index, 'Amount', value)}/></td>
-        <td class="expenses-cell"><Cell value={row.Type} type='Type' onCellChange={(value) => props.setExpenseCell(index, 'Type', value)}/></td>
+    <tr>
+        <td><Cell value={row.Date} type='Date' onCellChange={(value) => props.setExpenseCell(index, 'Date', value)}/></td>
+        <td><Cell value={row.Amount} type='Amount' onCellChange={(value) => props.setExpenseCell(index, 'Amount', value)}/></td>
+        <td><Cell value={row.Type} type='Type' onCellChange={(value) => props.setExpenseCell(index, 'Type', value)}/></td>
     </tr>
     ))
 
   return (
     <div>
-      <table class="expenses-table-t" aria-label="Budget">
+      <table class="expenses-table" aria-label="Budget">
         <th colspan="3"> Expenses </th>
-        <tr class="expenses-table-headers">
-          <th class="expenses-headers-cell">Date</th>
-          <th class="expenses-headers-cell">Amount</th>
-          <th class="expenses-headers-cell">Type</th>
+        <tr>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Type</th>
         </tr>
-        <tbody class="expenses-content">
+        <tbody>
           {expensesTableRows}
         </tbody>
       </table>
@@ -127,23 +127,23 @@ function ExpensesTable(props) {
 
 function IncomeTable(props) {
   const incomeTableRows = props.income.map((row, index) => (
-    <tr class="income-row">
-        <td class="income-cell"><Cell value={row.Date} type='Date' onCellChange={(value) => props.setIncomeCell(index, 'Date', value)}/></td>
-        <td class="income-cell"><Cell value={row.Amount} type='Amount' onCellChange={(value) => props.setIncomeCell(index, 'Amount', value)}/></td>
-        <td class="income-cell"><Cell value={row.Type} type='Type' onCellChange={(value) => props.setIncomeCell(index, 'Type', value)}/></td>
+    <tr>
+        <td><Cell value={row.Date} type='Date' onCellChange={(value) => props.setIncomeCell(index, 'Date', value)}/></td>
+        <td><Cell value={row.Amount} type='Amount' onCellChange={(value) => props.setIncomeCell(index, 'Amount', value)}/></td>
+        <td><Cell value={row.Type} type='Type' onCellChange={(value) => props.setIncomeCell(index, 'Type', value)}/></td>
     </tr>
     ))
 
   return (
     <div>
-      <table class="income-table-t">
+      <table class="income-table">
         <th colspan="3"> Income </th>
-          <tr class="income-table-headers">
-            <th class="income-headers-cell">Date</th>
-            <th class="income-headers-cell">Amount</th>
-            <th class="income-headers-cell">Type</th>
+          <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Type</th>
           </tr>
-          <tbody class="income-content">
+          <tbody>
             {incomeTableRows}
           </tbody>
       </table>
@@ -158,7 +158,7 @@ function Spendable(props) {
       <table class="spendable">
         <th> Spendable </th>
           <tr>
-            <td class="spendable-content">
+            <td>
               €{props.valueTotal(props.income) - props.valueTotal(props.expenses)}
             </td>
           </tr>
