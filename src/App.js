@@ -233,14 +233,15 @@ function Budget() {
           <ExpensesTable expenses={expenses.slice(27, 54)} setExpenseCell={(index, type, value) => setExpenseCell(index + 27, type, value)}/>
           <ExpensesTable expenses={expenses.slice(54, 81)} setExpenseCell={(index, type, value) => setExpenseCell(index + 54, type, value)}/>
       </div>
+      {/*License footer code from https://project.mprog.nl/milestones/cleanup*/}
       <footer>
-        <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
-          <img alt="Creative Commons License" src="80x15.png"/>
-        </a>
         This work is licensed under a 
-          <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
-          Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
-          </a>
+        <a rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/">
+          CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+        </a>
+        <a rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/">
+          <img alt="Creative Commons License" src="88x31.png" height="60%"/>
+        </a>
       </footer>
     </div>
   </>
