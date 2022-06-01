@@ -10,6 +10,20 @@ function App() {
 }
 
 function Cell(props) {
+  if (props.type === "Amount") {
+    return (
+      <div>
+        <FormControl fullWidth sx={{ width:'15ch' }} variant="standard">
+          <Input
+            value={props.value}
+            onChange={event => props.onCellChange(event.target.value)}
+            startAdornment={<InputAdornment position="start">€</InputAdornment>}
+          />
+        </FormControl>
+      </div>
+      )
+  }
+  
   return (
     <div>
       <FormControl fullWidth sx={{ width: '15ch' }} variant="standard">
@@ -20,20 +34,6 @@ function Cell(props) {
         </FormControl>
       </div>
     )
-}
-
-function MoneyCell(props) {
-  return (
-  <div>
-    <FormControl fullWidth sx={{ width:'15ch' }} variant="standard">
-      <Input
-        value={props.value}
-        onChange={event => props.onCellChange(event.target.value)}
-        startAdornment={<InputAdornment position="start">€</InputAdornment>}
-      />
-    </FormControl>
-  </div>
-  )
 }
 
 function IncomeTotal(props) {
@@ -103,7 +103,7 @@ function ExpensesTable(props) {
   const expensesTableRows = props.expenses.map((row, index) => (
     <tr class="expenses-row">
         <td class="expenses-cell"><Cell value={row.Date} type='Date' onCellChange={(value) => props.setExpenseCell(index, 'Date', value)}/></td>
-        <td class="expenses-money-cell"><MoneyCell value={row.Amount} type='Amount' onCellChange={(value) => props.setExpenseCell(index, 'Amount', value)}/></td>
+        <td class="expenses-cell"><Cell value={row.Amount} type='Amount' onCellChange={(value) => props.setExpenseCell(index, 'Amount', value)}/></td>
         <td class="expenses-cell"><Cell value={row.Type} type='Type' onCellChange={(value) => props.setExpenseCell(index, 'Type', value)}/></td>
     </tr>
     ))
@@ -129,7 +129,7 @@ function IncomeTable(props) {
   const incomeTableRows = props.income.map((row, index) => (
     <tr class="income-row">
         <td class="income-cell"><Cell value={row.Date} type='Date' onCellChange={(value) => props.setIncomeCell(index, 'Date', value)}/></td>
-        <td class="income-money-cell"><MoneyCell value={row.Amount} type='Amount' onCellChange={(value) => props.setIncomeCell(index, 'Amount', value)}/></td>
+        <td class="income-cell"><Cell value={row.Amount} type='Amount' onCellChange={(value) => props.setIncomeCell(index, 'Amount', value)}/></td>
         <td class="income-cell"><Cell value={row.Type} type='Type' onCellChange={(value) => props.setIncomeCell(index, 'Type', value)}/></td>
     </tr>
     ))

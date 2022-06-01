@@ -65,11 +65,13 @@ th, td, tr, table {
 }
 
 footer {
+  position:fixed;
+  bottom:10px;
   font-size: 50%;
   color:rgb(47, 47, 47);
   letter-spacing: 0.75px;
-  width: 75%;
-  height:75%;
+  width: 13%;
+  height:3%;
   border: 2px ridge rgb(255, 238, 216);
   background:rgb(177, 177, 177);
   text-align: center
