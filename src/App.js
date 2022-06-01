@@ -9,7 +9,9 @@ function App() {
   return (<Budget/>)
 }
 
+// Input fields for table cells
 function Cell(props) {
+  // Input field for monetary value
   if (props.type === "Amount") {
     return (
       <div>
@@ -24,6 +26,7 @@ function Cell(props) {
       )
   }
 
+  // Regular input field
   return (
     <div>
       <FormControl fullWidth sx={{ width: '15ch' }} variant="standard">
@@ -36,6 +39,7 @@ function Cell(props) {
     )
 }
 
+// Component with overview of the sum of all the monetary value cells of income
 function IncomeTotal(props) {
   return (
   <>
@@ -52,6 +56,7 @@ function IncomeTotal(props) {
   </>)
 }
 
+// Component with overview of the sum of all the monetary value cells of expenses
 function ExpensesTotal(props) {
   return (
   <>
@@ -68,6 +73,7 @@ function ExpensesTotal(props) {
   </>)
 }
 
+// Component with overview of the sum of all the monetary value cells of categories
 function Categories(props) {
   return (
   <>
@@ -91,6 +97,7 @@ function Categories(props) {
   </>)
 }
 
+// Button to clear entire budget + memory
 function ClearButton(props) {
   return (
     <button onClick = {() => props.handleClick()}>
@@ -99,6 +106,7 @@ function ClearButton(props) {
   )
 }
 
+// Component for table + rows of expenses
 function ExpensesTable(props) {
   const expensesTableRows = props.expenses.map((row, index) => (
     <tr>
@@ -125,6 +133,7 @@ function ExpensesTable(props) {
   )
 }
 
+// Component for table + rows of income
 function IncomeTable(props) {
   const incomeTableRows = props.income.map((row, index) => (
     <tr>
@@ -151,6 +160,7 @@ function IncomeTable(props) {
   )
 }
 
+// Component giving overview of remaining budget
 function Spendable(props) {
   return (
   <>
@@ -169,6 +179,7 @@ function Spendable(props) {
 
 
 function Budget() {
+  // Load existing income and/or expenses, or create new objects upon start-up
   const getInitialValues = (type) => {
     if (type in localStorage){
       return JSON.parse(localStorage.getItem(type))
@@ -177,24 +188,28 @@ function Budget() {
     return [{Date: null, Amount: null, Type: null}]
   }
 
+  // Objects containing all (previously) input data for expenses and income
   const [expenses, setExpenses] = useState(getInitialValues('expenses'))
   const [income, setIncome] = useState(getInitialValues('income'))
 
+  // Function to calculate the sum amount of income or expenses
   const valueTotal = (value) => value.map(row => {
     return (row['Amount'] === null || row['Amount'] === "") ? 0 : parseFloat(row['Amount'])
   }).reduce((a, b) => a + b, 0)
 
+  // Function to calculate the sum amount for input category
   const categoriesTotal = (type) => expenses.map(row => {
     return (
       row['Type'] == type ? row['Amount'] === null || row['Amount'] === "" ? 0 : parseFloat(row['Amount']) : 0
       )
   }).reduce((a, b) => a + b, 0)
 
+  // Function to store the input of a Cell into the corresponding object, and save it to browser memory
   const createSetCell = (value, setValue) => {
-    return (index, type, amount) => {
+    return (index, type, input) => {
       const newValue = [...value]
       newValue[index][type] = {...value[index][type]}
-      newValue[index][type] = amount
+      newValue[index][type] = input
       if (index === value.length - 1){
         setValue([...newValue, {Date: null, Amount: null, Type: null}])
       }
@@ -212,9 +227,9 @@ function Budget() {
   }
 
   const setExpenseCell = createSetCell(expenses, setExpenses)
-
   const setIncomeCell = createSetCell(income, setIncome)
 
+  // Function for button to clear budget + memory and reload the page
   const clearClick = () => {localStorage.clear(); window.location.reload()}
 
   return (

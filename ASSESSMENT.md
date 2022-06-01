@@ -1,0 +1,11 @@
+# Assessment
+## TJ Leeuwerik
+
+### Oorspronkelijke plan
+Voor deze app had ik in eerste instantie heel veel functionaliteit in gedachten; een tweede pagina met verwachte inkomsten/uitgaves, navigaties met pijltjestoetsen, aanpasbare kleurcodering per cel voor categorieën, visuals (zoals een pie chart bijvoorbeeld), meer customizable categorieën, en eventueel compatibiliteit met .csv bestanden van bankafschriften. De meeste van deze functionaliteiten zijn uiteindelijk afgevallen vanwege capaciteit/tijd, of omdat dit bij nader inzien complexer bleek dan het doeleinde, namelijk om een simpel te gebruiken, eenvoudige app te maken voor een snel overzicht. Het eindresultaat is wel beperkter dan ik had gewild. 
+
+### Implementatie
+In het proces heb ik eerst geen goed gebruik gemaakt van componenten, vrijwel alle HTML werd gegeven vanuit Budget. De HTML in componenten zetten maakte het geheel echt veel overzichtelijker, en maakte het aanpassen en verplaatsen van componenten over de pagina veel makkelijker. In het proces van het schrijven van de code heb ik ondervonden dat veel van de dingen die je voor lief neemt bij apps en waar je niet bij stil staat van te voren, zoals het opslaan, bewaren en opnieuw laden van input toch meer om handen heeft dan ik had gedacht. Esthetisch ben ik uiteindelijk ook volledig gegaan voor mijn oorspronkelijke vormgeving, dit voelt vertrouwd en vind ik overzichtelijk, en ik ben blij met het nostalgische en rustige uiterlijk van de app. Ik ben het meest tevreden dat ingevoerde bedragen direct bij de corresponderende totalen komen te staan, en dat de applicatie goed bruikbaar is om snel een overzichtje te maken.
+
+### Clean-up
+Het grootste gedeelte van de clean-up was classes weghalen die bij nader inzien overbodig bleken en commentaar toevoegen. Ik denk dat de naming duidelijk genoeg is dat ik niet heel uitgebreid commentaar heb gegeven om het niet al te druk te maken. Het customizable maken van de categorieën lijkt me wel erg nuttig om nog toe te voegen, maar vanwege tijd zal ik dit moeten laten.  
